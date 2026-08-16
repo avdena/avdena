@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anastasiya Audzeyenka — Creative Director</title>
+  <meta name="description" content="Creative Director specialising in brand identity, campaigns & employer branding." />
+  <meta property="og:title" content="Anastasiya Audzeyenka — Creative Director" />
+  <meta property="og:description" content="10 years in branding, advertising and employer branding." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0c0c0c;
+      --surface: #111111;
+      --border: #1e1e1e;
+      --border-subtle: #161616;
+      --text-primary: #ffffff;
+      --text-secondary: #cccccc;
+      --text-muted: #555555;
+      --text-dim: #3a3a3a;
+      --accent-red: #c0392b;
+      --accent-gold: #c8a96e;
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body: 'Inter', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 14px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── NAV ─── */
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.75rem 3rem;
+      border-bottom: 0.5px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(12,12,12,0.95);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+    }
+    .nav-phrase {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text-primary); }
+
+    /* ─── HERO ─── */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      min-height: 560px;
+      border-bottom: 0.5px solid var(--border);
+    }
+    .hero-left {
+      padding: 4rem 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-right: 0.5px solid var(--border);
+    }
+    .hero-eyebrow {
+      font-size: 11px;
+      color: var(--text-dim);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      white-space: nowrap;
+    }
+    .hero-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      margin-bottom: 2.5rem;
+    }
+    .hero-name .line1 {
+      font-size: clamp(44px, 6vw, 74px);
+      color: var(--text-primary);
+      display: block;
+    }
+    .hero-name .line2 {
+      font-size: clamp(44px, 6vw, 74px);
+      color: var(--accent-red);
+      display: block;
+      font-style: italic;
+    }
+    .hero-name .line3 {
+      font-size: clamp(24px, 3.5vw, 44px);
+      color: var(--text-dim);
+      display: block;
+      font-weight: 400;
+      font-style: italic;
+      margin-top: 4px;
+    }
+    .hero-tagline {
+      font-size: 13px;
+      color: var(--text-muted);
+      max-width: 380px;
+      line-height: 1.8;
+      margin-bottom: 3rem;
+    }
+    .hero-meta {
+      display: flex;
+      align-items: flex-start;
+      gap: 0;
+    }
+    .hero-meta-item { display: flex; flex-direction: column; }
+    .hero-meta-val {
+      font-size: 24px;
+      font-weight: 300;
+      color: var(--text-primary);
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+    .hero-meta-label {
+      font-size: 10px;
+      color: var(--text-dim);
+      margin-top: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      line-height: 1.3;
+      height: 26px;
+    }
+    .meta-divider {
+      width: 0.5px;
+      height: 32px;
+      background: #222;
+      margin-top: 4px;
+      flex-shrink: 0;
+    }
+    .meta-gap-sm { width: 1.5rem; flex-shrink: 0; }
+    .meta-gap-lg { width: 2.5rem; flex-shrink: 0; }
+
+    /* ─── HERO PHOTO ─── */
+    .hero-right {
+      position: relative;
+      overflow: hidden;
+      background: #080404;
+    }
+    .hero-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 10%;
+      display: block;
+    }
+    .hero-photo-overlay {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 35%;
+      background: linear-gradient(to top, #0c0c0c, transparent);
+    }
+    .hero-photo-overlay-left {
+      position: absolute;
+      top: 0; left: 0; bottom: 0;
+      width: 25%;
+      background: linear-gradient(to right, #0c0c0c, transparent);
+    }
+
+    /* ─── SECTION HEADER ─── */
+    .section-header {
+      padding: 1.75rem 3rem;
+      border-bottom: 0.5px solid var(--border-subtle);
+    }
+    .section-title {
+      font-size: 11px;
+      color: var(--text-dim);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    /* ─── GRID ─── */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border-subtle);
+    }
+    .grid-item {
+      background: var(--bg);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+      display: block;
+    }
+    .grid-item.wide { grid-column: span 2; }
+    .grid-thumb {
+      width: 100%;
+      aspect-ratio: 16/9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      transition: opacity 0.35s ease;
+    }
+    .grid-item.wide .grid-thumb { aspect-ratio: 21/8; }
+    .grid-item:hover .grid-thumb { opacity: 0.75; }
+    .grid-info {
+      padding: 1.25rem 1.5rem;
+      border-top: 0.5px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .grid-title {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+      font-weight: 400;
+    }
+    .grid-cat {
+      font-size: 10px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .grid-award {
+      font-size: 11px;
+      color: var(--accent-gold);
+      text-align: right;
+      white-space: nowrap;
+      margin-left: 1rem;
+      flex-shrink: 0;
+    }
+    .thumb-label {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .thumb-client {
+      font-size: 10px;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .thumb-project {
+      font-family: var(--font-display);
+      font-size: 22px;
+      color: rgba(255,255,255,0.8);
+      font-style: italic;
+    }
+    .thumb-dots {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      margin-top: 10px;
+    }
+    .thumb-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+    }
+
+    /* ─── ABOUT STRIP ─── */
+    .about-strip {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      padding: 3rem;
+      border-top: 0.5px solid var(--border);
+      align-items: center;
+    }
+    .about-text {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.9;
+      font-weight: 300;
+    }
+    .about-text strong {
+      color: var(--text-secondary);
+      font-weight: 400;
+    }
+    .about-cta-label {
+      font-size: 10px;
+      color: var(--text-dim);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .about-cta-link {
+      font-size: 22px;
+      color: var(--text-primary);
+      text-decoration: none;
+      font-family: var(--font-display);
+      font-style: italic;
+      border-bottom: 0.5px solid #333;
+      padding-bottom: 0.75rem;
+      display: block;
+      transition: color 0.2s;
+    }
+    .about-cta-link:hover { color: var(--accent-red); }
+
+    /* ─── FOOTER ─── */
+    .footer {
+      padding: 1.25rem 3rem;
+      border-top: 0.5px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+    }
+    .footer span {
+      font-size: 10px;
+      color: #2a2a2a;
+      letter-spacing: 0.05em;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      .nav { padding: 1.25rem 1.5rem; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-right { height: 300px; }
+      .hero-left { padding: 2.5rem 1.5rem; border-right: none; border-bottom: 0.5px solid var(--border); }
+      .hero-name .line1, .hero-name .line2 { font-size: 44px; }
+      .grid { grid-template-columns: 1fr; }
+      .grid-item.wide { grid-column: span 1; }
+      .grid-item.wide .grid-thumb { aspect-ratio: 16/9; }
+      .about-strip { grid-template-columns: 1fr; gap: 2rem; padding: 2rem 1.5rem; }
+      .section-header { padding: 1.25rem 1.5rem; }
+      .footer { padding: 1rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-phrase">Hello, it's me</div>
+    <div class="nav-links">
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <div>
+        <div class="hero-eyebrow">Creative Director · Available for hire</div>
+        <h1 class="hero-name">
+          <span class="line1">Anastasiya</span>
+          <span class="line2">Audzeyenka</span>
+          <span class="line3">Creative Director</span>
+        </h1>
+        <p class="hero-tagline">Specialising in brand identity, campaigns & employer branding. 10 years across every industry — from FMCG to industrial manufacturing.</p>
+      </div>
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <span class="hero-meta-val">15</span>
+          <span class="hero-meta-label">Best case<br>studies</span>
+        </div>
+        <div class="meta-gap-sm"></div>
+        <div class="meta-divider"></div>
+        <div class="meta-gap-sm"></div>
+        <div class="hero-meta-item">
+          <span class="hero-meta-val">10+</span>
+          <span class="hero-meta-label">Years</span>
+        </div>
+        <div class="meta-gap-lg"></div>
+        <div class="meta-divider"></div>
+        <div class="meta-gap-lg"></div>
+        <div class="hero-meta-item">
+          <span class="hero-meta-val">20+</span>
+          <span class="hero-meta-label">Awards</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <!-- Replace photo.jpg with your actual photo file -->
+      <img class="hero-photo" src="photo.jpg" alt="Anastasiya Audzeyenka" />
+      <div class="hero-photo-overlay"></div>
+      <div class="hero-photo-overlay-left"></div>
+    </div>
+  </section>
+
+  <!-- WORK GRID -->
+  <div id="work" class="section-header">
+    <span class="section-title">Selected work</span>
+  </div>
+
+  <div class="grid">
+
+    <!-- MTS — wide -->
+    <a class="grid-item wide" href="#">
+      <div class="grid-thumb" style="background:linear-gradient(135deg,#1a0520,#2a0a3a,#1a1a3a);">
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(100,40,200,0.25),transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(30,80,180,0.2),transparent 60%);"></div>
+        <div class="thumb-label">
+          <div class="thumb-client">MTS</div>
+          <div class="thumb-project">Work Without Drama</div>
+        </div>
+      </div>
+      <div class="grid-info">
+        <div>
+          <div class="grid-title">MTS — Work Without Drama</div>
+          <div class="grid-cat">Employer Branding</div>
+        </div>
+        <div class="grid-award">🏆 Gold</div>
+      </div>
+    </a>
+
+    <!-- JTI -->
+    <a class="grid-item" href="#">
+      <div class="grid-thumb" style="background:linear-gradient(135deg,#051528,#0a2040,#051528);">
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(30,80,180,0.2),transparent 65%);"></div>
+        <div class="thumb-label">
+          <div class="thumb-client">JTI</div>
+          <div class="thumb-project">Our Way</div>
+          <div class="thumb-dots">
+            <div class="thumb-dot" style="background:#4a9eff;"></div>
+            <div class="thumb-dot" style="background:#ff9a4a;"></div>
+            <div class="thumb-dot" style="background:#4affa0;"></div>
+          </div>
+        </div>
+      </div>
+      <div class="grid-info">
+        <div>
+          <div class="grid-title">JTI — Our Way</div>
+          <div class="grid-cat">Internal Communications</div>
+        </div>
+        <div class="grid-award">🏆 Grand Prix</div>
+      </div>
+    </a>
+
+    <!-- Severstal -->
+    <a class="grid-item" href="#">
+      <div class="grid-thumb" style="background:linear-gradient(135deg,#150a05,#2a1205,#1a0a05);">
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 60%,rgba(180,40,20,0.3),transparent 65%);"></div>
+        <div class="thumb-label">
+          <div class="thumb-client">Severstal</div>
+          <div class="thumb-project">Steel Hunters</div>
+        </div>
+      </div>
+      <div class="grid-info">
+        <div>
+          <div class="grid-title">Severstal — Steel Hunters</div>
+          <div class="grid-cat">Employer Branding · Gamification</div>
+        </div>
+        <div class="grid-award">🏆 Grand Prix · Gold</div>
+      </div>
+    </a>
+
+    <!-- RTC COD -->
+    <a class="grid-item" href="#">
+      <div class="grid-thumb" style="background:#050508;">
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(30,60,200,0.15),transparent 50%),radial-gradient(ellipse at 70% 50%,rgba(200,60,20,0.1),transparent 50%);"></div>
+        <div class="thumb-label">
+          <div class="thumb-client">RTC COD</div>
+          <div class="thumb-project">The Guild</div>
+          <div class="thumb-dots">
+            <div class="thumb-dot" style="background:#3c78ff;"></div>
+            <div class="thumb-dot" style="background:#ff6c3c;"></div>
+            <div class="thumb-dot" style="background:#3cff9a;"></div>
+          </div>
+        </div>
+      </div>
+      <div class="grid-info">
+        <div>
+          <div class="grid-title">RTC COD — The Guild</div>
+          <div class="grid-cat">Gamification · Internal Comms</div>
+        </div>
+        <div class="grid-award">🏆 Grand Prix · Bronze</div>
+      </div>
+    </a>
+
+    <!-- SIBUR -->
+    <a class="grid-item" href="#">
+      <div class="grid-thumb" style="background:linear-gradient(135deg,#0a1a0a,#0a2810,#051a08);">
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(20,120,40,0.2),transparent 65%);"></div>
+        <div class="thumb-label">
+          <div class="thumb-client">SIBUR</div>
+          <div class="thumb-project">It Doesn't Matter What Others Say</div>
+        </div>
+      </div>
+      <div class="grid-info">
+        <div>
+          <div class="grid-title">SIBUR — Women in Industry</div>
+          <div class="grid-cat">Employer Branding · Campaign</div>
+        </div>
+        <div class="grid-award">🏆 Silver</div>
+      </div>
+    </a>
+
+    <!-- Gazprombank -->
+    <a class="grid-item" href="#">
+      <div class="grid-thumb" style="background:linear-gradient(135deg,#0a0a1a,#12122a,#0a0a1a);">
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(60,40,180,0.2),transparent 65%);"></div>
+        <div class="thumb-label">
+          <div class="thumb-client">Gazprombank</div>
+          <div class="thumb-project">Ironically About What Matters</div>
+        </div>
+      </div>
+      <div class="grid-info">
+        <div>
+          <div class="grid-title">Gazprombank — Fables</div>
+          <div class="grid-cat">Employer Branding · Digital</div>
+        </div>
+        <div class="grid-award"></div>
+      </div>
+    </a>
+
+    <!-- NLMK IT -->
+    <a class="grid-item" href="#">
+      <div class="grid-thumb" style="background:linear-gradient(135deg,#0a1220,#0f1a2a,#0a1220);">
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(20,80,160,0.25),transparent 65%);"></div>
+        <div class="thumb-label">
+          <div class="thumb-client">NLMK IT</div>
+          <div class="thumb-project">Making Digital Real</div>
+        </div>
+      </div>
+      <div class="grid-info">
+        <div>
+          <div class="grid-title">NLMK IT — Making Digital Real</div>
+          <div class="grid-cat">Employer Branding · Identity</div>
+        </div>
+        <div class="grid-award"></div>
+      </div>
+    </a>
+
+    <!-- Detsky Mir -->
+    <a class="grid-item" href="#">
+      <div class="grid-thumb" style="background:linear-gradient(135deg,#1a1008,#2a1a0a,#1a1008);">
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(140,80,20,0.2),transparent 65%);"></div>
+        <div class="thumb-label">
+          <div class="thumb-client">Detsky Mir</div>
+          <div class="thumb-project">Work for Those Who Will Change the World</div>
+        </div>
+      </div>
+      <div class="grid-info">
+        <div>
+          <div class="grid-title">Detsky Mir — Work for Those Who Will Change the World</div>
+          <div class="grid-cat">Employer Branding · Identity</div>
+        </div>
+        <div class="grid-award"></div>
+      </div>
+    </a>
+
+    <!-- Alias Group -->
+    <a class="grid-item" href="#">
+      <div class="grid-thumb" style="background:linear-gradient(135deg,#080a1a,#0a0c22,#080a1a);">
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(40,40,160,0.2),transparent 65%);"></div>
+        <div class="thumb-label">
+          <div class="thumb-client">Alias Group / Neometria</div>
+          <div class="thumb-project">Values as a Handwriting</div>
+        </div>
+      </div>
+      <div class="grid-info">
+        <div>
+          <div class="grid-title">Alias Group — Values as a Handwriting</div>
+          <div class="grid-cat">Employer Branding · Identity</div>
+        </div>
+        <div class="grid-award"></div>
+      </div>
+    </a>
+
+    <!-- Luchi -->
+    <a class="grid-item" href="#">
+      <div class="grid-thumb" style="background:linear-gradient(135deg,#0a1a10,#0c2015,#0a1a10);">
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(20,120,60,0.15),transparent 65%);"></div>
+        <div class="thumb-label">
+          <div class="thumb-client">Luchi</div>
+          <div class="thumb-project">Work at a Different >> Speed</div>
+        </div>
+      </div>
+      <div class="grid-info">
+        <div>
+          <div class="grid-title">Luchi — Work at a Different >> Speed</div>
+          <div class="grid-cat">Employer Branding · Identity</div>
+        </div>
+        <div class="grid-award"></div>
+      </div>
+    </a>
+
+    <!-- Plan A -->
+    <a class="grid-item" href="#">
+      <div class="grid-thumb" style="background:linear-gradient(135deg,#1a0a0a,#220808,#1a0a0a);">
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(160,30,20,0.2),transparent 65%);"></div>
+        <div class="thumb-label">
+          <div class="thumb-client">Plan A</div>
+          <div class="thumb-project">Stuck in Photostock</div>
+        </div>
+      </div>
+      <div class="grid-info">
+        <div>
+          <div class="grid-title">Plan A — Stuck in Photostock</div>
+          <div class="grid-cat">Advertising · Guerrilla</div>
+        </div>
+        <div class="grid-award">🏆 Silver · Bronze · Bronze</div>
+      </div>
+    </a>
+
+    <!-- But Hurts -->
+    <a class="grid-item" href="#">
+      <div class="grid-thumb" style="background:#080808;">
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(80,80,80,0.12),transparent 65%);"></div>
+        <div class="thumb-label">
+          <div class="thumb-client">Forte Grey</div>
+          <div class="thumb-project">But Hurts</div>
+        </div>
+      </div>
+      <div class="grid-info">
+        <div>
+          <div class="grid-title">But Hurts — HO</div>
+          <div class="grid-cat">Advertising · Self-Promo</div>
+        </div>
+        <div class="grid-award">🏆 Shortlist · Prize</div>
+      </div>
+    </a>
+
+    <!-- INVITEbsk — wide -->
+    <a class="grid-item wide" href="#">
+      <div class="grid-thumb" style="background:linear-gradient(135deg,#1a1200,#2a1e00,#1a1200);aspect-ratio:21/8;">
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(180,140,0,0.12),transparent 65%);"></div>
+        <div class="thumb-label">
+          <div class="thumb-client">City Brand</div>
+          <div class="thumb-project">INVITEbsk</div>
+        </div>
+      </div>
+      <div class="grid-info">
+        <div>
+          <div class="grid-title">INVITEbsk — City Brand Concept</div>
+          <div class="grid-cat">Brand Identity · Place Branding</div>
+        </div>
+        <div class="grid-award">🏆 2nd Place</div>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- ABOUT + CONTACT -->
+  <div id="about" class="about-strip">
+    <p class="about-text">
+      I've spent <strong>ten years</strong> figuring out what makes brands matter. Branding, ATL, BTL, digital — I've worked across all of it, with clients from FMCG and telecom to IT and industrial companies. And for the last five years: <strong>employer branding</strong>, which turned out to be the sharpest test of creative thinking I've found. You can't fake it. Either the brand feels real, or people don't want to work there.
+    </p>
+    <div id="contact">
+      <div class="about-cta-label">Get in touch</div>
+      <a href="mailto:avdos42@gmail.com" class="about-cta-link">avdos42@gmail.com</a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <span>© 2025 Anastasiya Audzeyenka</span>
+    <span>Creative Director</span>
+  </footer>
+
+</body>
+</html>
