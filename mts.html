@@ -30,23 +30,31 @@
       padding: 32px 24px 24px;
       border-bottom: 1px solid #aaa;
       display: grid;
-      grid-template-columns: 1fr 280px;
+      grid-template-columns: 1fr 260px;
       gap: 48px;
-      align-items: end;
+      align-items: start;
     }
     .case-back { font-size: 11px; color: #888; margin-bottom: 16px; }
     .case-back a { color: #888; text-decoration: none; }
     .case-back a:hover { color: #ff0000; }
-    .case-client { font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; color: #888; margin-bottom: 8px; }
+    .case-client { font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; color: #555; margin-bottom: 10px; font-weight: bold; }
     .case-title {
-      font-size: clamp(32px, 6vw, 64px);
+      font-size: clamp(36px, 5vw, 56px);
       font-weight: 900;
-      line-height: 0.95;
+      line-height: 1.0;
       letter-spacing: -0.02em;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
+      white-space: nowrap;
     }
     .case-title .red { color: #ff0000; }
-    .case-type { font-size: 11px; color: #888; }
+    .case-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    .case-tag {
+      font-size: 11px;
+      padding: 3px 10px;
+      border: 1.5px solid #000;
+      font-weight: bold;
+      letter-spacing: 0.05em;
+    }
     .case-meta { }
     .meta-item { padding: 12px 0; border-top: 1px solid #aaa; }
     .meta-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: #888; margin-bottom: 4px; }
@@ -55,17 +63,20 @@
 
     /* VIDEO */
     .video-wrap {
-      width: 100%;
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
       border-bottom: 1px solid #aaa;
     }
-    .video-wrap video {
-      width: 100%;
-      display: block;
-      max-height: 600px;
-      object-fit: cover;
+    .video-wrap iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: none;
     }
 
-    /* CASE TEXT */
+    /* CASE TEXT 2 col */
     .case-body {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -76,44 +87,80 @@
       border-right: 1px solid #aaa;
     }
     .case-section:last-child { border-right: none; }
-    .case-section-title { font-weight: bold; margin-bottom: 12px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; }
+    .case-section-title {
+      font-weight: bold;
+      margin-bottom: 12px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
     .case-text { line-height: 1.7; color: #333; }
     .case-text .red { color: #ff0000; }
+    .case-text em { font-style: italic; }
 
-    /* FULL TEXT SECTION */
+    /* FULL WIDTH SECTION */
     .case-full {
       padding: 24px;
       border-bottom: 1px solid #aaa;
-      max-width: 720px;
     }
+    .case-full .case-text { max-width: 800px; }
 
-    /* IMAGES */
+    /* FULL IMAGE */
     .img-full {
       width: 100%;
       display: block;
       border-bottom: 1px solid #aaa;
     }
-    .img-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1px;
-      background: #aaa;
+
+    /* CAROUSEL */
+    .carousel {
+      position: relative;
       border-bottom: 1px solid #aaa;
+      overflow: hidden;
     }
-    .img-grid img, .img-grid .gif-wrap {
+    .carousel-track {
+      display: flex;
+      transition: transform 0.3s ease;
+    }
+    .carousel-slide {
+      min-width: 100%;
+      position: relative;
+    }
+    .carousel-slide img {
       width: 100%;
       display: block;
-      background: #e8e8e8;
+      max-height: 600px;
+      object-fit: cover;
     }
-    .img-grid img { aspect-ratio: 16/9; object-fit: cover; }
-    .img-3col {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 1px;
-      background: #aaa;
-      border-bottom: 1px solid #aaa;
+    .carousel-slide .gif-slide {
+      width: 100%;
+      display: block;
     }
-    .img-3col img { width: 100%; display: block; aspect-ratio: 3/4; object-fit: cover; }
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #000;
+      color: #fff;
+      border: none;
+      padding: 12px 18px;
+      font-size: 18px;
+      cursor: pointer;
+      z-index: 10;
+      font-family: 'Courier New', monospace;
+    }
+    .carousel-btn:hover { background: #ff0000; }
+    .carousel-prev { left: 0; }
+    .carousel-next { right: 0; }
+    .carousel-counter {
+      position: absolute;
+      bottom: 12px;
+      right: 16px;
+      font-size: 11px;
+      color: #fff;
+      background: rgba(0,0,0,0.5);
+      padding: 2px 8px;
+    }
 
     /* STATS */
     .stats {
@@ -126,8 +173,20 @@
       border-right: 1px solid #aaa;
     }
     .stat-item:last-child { border-right: none; }
-    .stat-val { font-size: clamp(28px, 4vw, 48px); font-weight: 900; letter-spacing: -0.02em; display: block; }
-    .stat-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: #888; margin-top: 4px; display: block; }
+    .stat-val {
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      display: block;
+    }
+    .stat-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #888;
+      margin-top: 4px;
+      display: block;
+    }
 
     /* NEXT */
     .case-next {
@@ -135,7 +194,6 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-top: 1px solid #aaa;
     }
     .case-next a { color: #000; text-decoration: none; font-weight: bold; }
     .case-next a:hover { color: #ff0000; }
@@ -149,12 +207,11 @@
       justify-content: space-between;
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 700px) {
       .case-header { grid-template-columns: 1fr; }
+      .case-title { white-space: normal; font-size: 32px; }
       .case-body { grid-template-columns: 1fr; }
       .case-section { border-right: none; border-bottom: 1px solid #aaa; }
-      .img-grid { grid-template-columns: 1fr; }
-      .img-3col { grid-template-columns: 1fr; }
       .stats { grid-template-columns: 1fr 1fr; }
     }
   </style>
@@ -175,8 +232,12 @@
     <div>
       <div class="case-back"><a href="index.html">← Back to all work</a></div>
       <div class="case-client">MTS · Employer Branding</div>
-      <h1 class="case-title">Work Without<br><span class="red">Drama</span></h1>
-      <div class="case-type">Digital activation · AI-generated content · Valentine's Day campaign</div>
+      <h1 class="case-title">Work Without <span class="red">Drama</span></h1>
+      <div class="case-tags">
+        <span class="case-tag">Digital activation</span>
+        <span class="case-tag">AI-generated content</span>
+        <span class="case-tag">Valentine's Day</span>
+      </div>
     </div>
     <div class="case-meta">
       <div class="meta-item">
@@ -195,16 +256,15 @@
   </div>
 
   <!-- VIDEO -->
-  <div class="video-wrap" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-bottom:1px solid #aaa;">
+  <div class="video-wrap">
     <iframe
       src="https://www.youtube.com/embed/8gSRZlxvXP0"
-      style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowfullscreen>
     </iframe>
   </div>
 
-  <!-- CASE TEXT -->
+  <!-- CHALLENGE + IDEA -->
   <div class="case-body">
     <div class="case-section">
       <div class="case-section-title">Challenge</div>
@@ -228,12 +288,34 @@
     </div>
   </div>
 
-  <!-- SCREENS GRID -->
-  <div class="img-grid">
-    <img src="mts-1.jpg" alt="MTS campaign visual" />
-    <img src="mts-2.jpg" alt="MTS campaign visual" />
-    <img src="mts-3.jpg" alt="MTS campaign visual" />
-    <img src="mts-4.jpg" alt="MTS campaign visual" />
+  <!-- CAROUSEL -->
+  <div class="carousel">
+    <div class="carousel-track" id="track">
+      <div class="carousel-slide">
+        <img src="mts-site.gif" alt="MTS site" />
+      </div>
+      <div class="carousel-slide">
+        <img src="mts-1.jpg" alt="MTS visual" />
+      </div>
+      <div class="carousel-slide">
+        <img src="mts-2.jpg" alt="MTS visual" />
+      </div>
+      <div class="carousel-slide">
+        <img src="mts-3.jpg" alt="MTS visual" />
+      </div>
+      <div class="carousel-slide">
+        <img src="mts-4.jpg" alt="MTS visual" />
+      </div>
+    </div>
+    <button class="carousel-btn carousel-prev" onclick="move(-1)">←</button>
+    <button class="carousel-btn carousel-next" onclick="move(1)">→</button>
+    <div class="carousel-counter" id="counter">1 / 5</div>
+  </div>
+
+  <!-- GIFS -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#aaa;border-bottom:1px solid #aaa;">
+    <div style="background:#e8e8e8;"><img src="mts-mascot.gif" alt="MTS mascot" style="width:100%;display:block;" /></div>
+    <div style="background:#e8e8e8;"><img src="mts-emoji.gif" alt="MTS emoji" style="width:100%;display:block;" /></div>
   </div>
 
   <!-- STATS -->
@@ -266,6 +348,24 @@
     <span>© 2025 Anastasiya Audzeyenka</span>
     <span>Creative Director · Warsaw</span>
   </footer>
+
+  <script>
+    let current = 0;
+    const total = 5;
+    const track = document.getElementById('track');
+    const counter = document.getElementById('counter');
+
+    function move(dir) {
+      current = (current + dir + total) % total;
+      track.style.transform = `translateX(-${current * 100}%)`;
+      counter.textContent = `${current + 1} / ${total}`;
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowLeft') move(-1);
+      if (e.key === 'ArrowRight') move(1);
+    });
+  </script>
 
 </body>
 </html>
