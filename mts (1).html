@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MTS — Work Without Drama · Anastasiya Audzeyenka</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #e8e8e8;
+      color: #000;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 10px 24px;
+      border-bottom: 1px solid #aaa;
+    }
+    .nav-name { font-size: 13px; font-weight: bold; }
+    .nav-links { display: flex; gap: 20px; }
+    .nav-links a { color: #000; text-decoration: none; font-size: 13px; }
+    .nav-links a:hover { text-decoration: underline; }
+
+    /* HEADER */
+    .case-header {
+      padding: 32px 24px 24px;
+      border-bottom: 1px solid #aaa;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 48px;
+      align-items: end;
+    }
+    .case-back { font-size: 11px; color: #888; margin-bottom: 16px; }
+    .case-back a { color: #888; text-decoration: none; }
+    .case-back a:hover { color: #ff0000; }
+    .case-client { font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; color: #888; margin-bottom: 8px; }
+    .case-title {
+      font-size: clamp(32px, 6vw, 64px);
+      font-weight: 900;
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+    .case-title .red { color: #ff0000; }
+    .case-type { font-size: 11px; color: #888; }
+    .case-meta { }
+    .meta-item { padding: 12px 0; border-top: 1px solid #aaa; }
+    .meta-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: #888; margin-bottom: 4px; }
+    .meta-val { font-size: 13px; font-weight: bold; }
+    .meta-award { color: #ff0000; }
+
+    /* VIDEO */
+    .video-wrap {
+      width: 100%;
+      border-bottom: 1px solid #aaa;
+    }
+    .video-wrap video {
+      width: 100%;
+      display: block;
+      max-height: 600px;
+      object-fit: cover;
+    }
+
+    /* CASE TEXT */
+    .case-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid #aaa;
+    }
+    .case-section {
+      padding: 24px;
+      border-right: 1px solid #aaa;
+    }
+    .case-section:last-child { border-right: none; }
+    .case-section-title { font-weight: bold; margin-bottom: 12px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; }
+    .case-text { line-height: 1.7; color: #333; }
+    .case-text .red { color: #ff0000; }
+
+    /* FULL TEXT SECTION */
+    .case-full {
+      padding: 24px;
+      border-bottom: 1px solid #aaa;
+      max-width: 720px;
+    }
+
+    /* IMAGES */
+    .img-full {
+      width: 100%;
+      display: block;
+      border-bottom: 1px solid #aaa;
+    }
+    .img-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: #aaa;
+      border-bottom: 1px solid #aaa;
+    }
+    .img-grid img, .img-grid .gif-wrap {
+      width: 100%;
+      display: block;
+      background: #e8e8e8;
+    }
+    .img-grid img { aspect-ratio: 16/9; object-fit: cover; }
+    .img-3col {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1px;
+      background: #aaa;
+      border-bottom: 1px solid #aaa;
+    }
+    .img-3col img { width: 100%; display: block; aspect-ratio: 3/4; object-fit: cover; }
+
+    /* STATS */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-bottom: 1px solid #aaa;
+    }
+    .stat-item {
+      padding: 24px;
+      border-right: 1px solid #aaa;
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-val { font-size: clamp(28px, 4vw, 48px); font-weight: 900; letter-spacing: -0.02em; display: block; }
+    .stat-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: #888; margin-top: 4px; display: block; }
+
+    /* NEXT */
+    .case-next {
+      padding: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #aaa;
+    }
+    .case-next a { color: #000; text-decoration: none; font-weight: bold; }
+    .case-next a:hover { color: #ff0000; }
+
+    footer {
+      padding: 8px 24px;
+      border-top: 1px solid #aaa;
+      font-size: 11px;
+      color: #888;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    @media (max-width: 600px) {
+      .case-header { grid-template-columns: 1fr; }
+      .case-body { grid-template-columns: 1fr; }
+      .case-section { border-right: none; border-bottom: 1px solid #aaa; }
+      .img-grid { grid-template-columns: 1fr; }
+      .img-3col { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <span class="nav-name">Anastasiya Audzeyenka</span>
+    <div class="nav-links">
+      <a href="index.html">Work</a>
+      <a href="about.html">About</a>
+      <a href="mailto:avdos42@gmail.com">Contact</a>
+    </div>
+  </nav>
+
+  <!-- HEADER -->
+  <div class="case-header">
+    <div>
+      <div class="case-back"><a href="index.html">← Back to all work</a></div>
+      <div class="case-client">MTS · Employer Branding</div>
+      <h1 class="case-title">Work Without<br><span class="red">Drama</span></h1>
+      <div class="case-type">Digital activation · AI-generated content · Valentine's Day campaign</div>
+    </div>
+    <div class="case-meta">
+      <div class="meta-item">
+        <div class="meta-label">Year</div>
+        <div class="meta-val">2022</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Category</div>
+        <div class="meta-val">Employer Branding</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Award</div>
+        <div class="meta-val meta-award">🏆 Gold · PROBA</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIDEO -->
+  <div class="video-wrap" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-bottom:1px solid #aaa;">
+    <iframe
+      src="https://www.youtube.com/embed/8gSRZlxvXP0"
+      style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <!-- CASE TEXT -->
+  <div class="case-body">
+    <div class="case-section">
+      <div class="case-section-title">Challenge</div>
+      <div class="case-text">MTS had updated its employer brand and needed a bold launch — something that would cut through the noise, reach young talent, and reposition the company away from its old corporate image. The ask was loud, unexpected, and high-reach.</div>
+    </div>
+    <div class="case-section">
+      <div class="case-section-title">Idea</div>
+      <div class="case-text">We turned a universal workplace pain into a creative platform. On Valentine's Day — the most dramatic day of the year — we launched a <span class="red">fake video streaming service</span> dedicated entirely to workplace dramas. Every "film" was a story about the painful, funny, and all-too-familiar moments people have with their jobs. The twist: MTS had the antidote to every drama.</div>
+    </div>
+  </div>
+
+  <!-- POSTERS -->
+  <img class="img-full" src="mts-posters.png" alt="MTS film posters" />
+
+  <!-- EXECUTION -->
+  <div class="case-full">
+    <div class="case-section-title">Execution</div>
+    <div class="case-text">
+      The site was built around a collection of fictional films — each with a familiar title twisted into a workplace wordplay: <em>Fantastic Projects and Where to Find Them</em>, <em>The Big Breakdown Theory</em>, <em>How to Train Your Junior</em>. Users browsed posters and titles, read a synopsis describing a classic workplace drama — toxic management, bureaucracy, brutal schedules — then hit the antidote button, where MTS responded directly.<br><br>
+      Then users could generate their own poster: write a creative title, craft a synopsis about their personal work drama, and enter a competition. <span class="red">One of the first uses of AI-generated visuals in employer branding in 2022</span>, before the technology became mainstream.
+    </div>
+  </div>
+
+  <!-- SCREENS GRID -->
+  <div class="img-grid">
+    <img src="mts-1.jpg" alt="MTS campaign visual" />
+    <img src="mts-2.jpg" alt="MTS campaign visual" />
+    <img src="mts-3.jpg" alt="MTS campaign visual" />
+    <img src="mts-4.jpg" alt="MTS campaign visual" />
+  </div>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat-item">
+      <span class="stat-val">10M+</span>
+      <span class="stat-label">Total reach</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-val">42,966</span>
+      <span class="stat-label">Site visitors</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-val">15,700</span>
+      <span class="stat-label">Posters generated</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-val">2,776</span>
+      <span class="stat-label">Posters published</span>
+    </div>
+  </div>
+
+  <!-- NEXT -->
+  <div class="case-next">
+    <a href="index.html">← All work</a>
+    <a href="jti.html">Next: JTI — Our Way →</a>
+  </div>
+
+  <footer>
+    <span>© 2025 Anastasiya Audzeyenka</span>
+    <span>Creative Director · Warsaw</span>
+  </footer>
+
+</body>
+</html>
