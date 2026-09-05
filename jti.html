@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JTI — Our Way · Anastasiya Audzeyenka</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #e8e8e8;
+      color: #000;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 10px 24px;
+      border-bottom: 1px solid #aaa;
+    }
+    .nav-name { font-size: 13px; font-weight: bold; }
+    .nav-links { display: flex; gap: 20px; }
+    .nav-links a { color: #000; text-decoration: none; font-size: 13px; }
+    .nav-links a:hover { text-decoration: underline; }
+
+    /* HEADER */
+    .case-header {
+      padding: 32px 24px 24px;
+      border-bottom: 1px solid #aaa;
+      display: grid;
+      grid-template-columns: 1fr 260px;
+      gap: 48px;
+      align-items: start;
+    }
+    .case-back { font-size: 11px; color: #888; margin-bottom: 16px; }
+    .case-back a { color: #888; text-decoration: none; }
+    .case-back a:hover { color: #ff0000; }
+    .case-client { font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; color: #555; margin-bottom: 10px; font-weight: bold; }
+    .case-title {
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 900;
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+      white-space: nowrap;
+    }
+    .case-title .red { color: #ff0000; }
+    .case-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    .case-tag { font-size: 11px; padding: 3px 10px; border: 1.5px solid #000; font-weight: bold; letter-spacing: 0.05em; }
+    .meta-item { padding: 12px 0; border-top: 1px solid #aaa; }
+    .meta-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: #888; margin-bottom: 4px; }
+    .meta-val { font-size: 13px; font-weight: bold; }
+    .meta-award { color: #ff0000; font-weight: 900; }
+
+    /* VIDEO */
+    .video-wrap {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-bottom: 1px solid #aaa;
+    }
+    .video-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+
+    /* 2 COL TEXT */
+    .case-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid #aaa;
+    }
+    .case-section { padding: 24px; border-right: 1px solid #aaa; }
+    .case-section:last-child { border-right: none; }
+    .case-section-title { font-weight: bold; margin-bottom: 12px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; }
+    .case-text { line-height: 1.8; color: #000; font-weight: 500; }
+    .case-text .red { color: #ff0000; font-weight: 900; }
+
+    /* FULL WIDTH */
+    .case-full { padding: 24px; border-bottom: 1px solid #aaa; }
+    .case-full-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 16px; }
+
+    /* CAROUSEL */
+    .carousel { position: relative; border-bottom: 1px solid #aaa; overflow: hidden; background: #000; }
+    .carousel-track { display: flex; transition: transform 0.3s ease; }
+    .carousel-slide { min-width: 100%; }
+    .carousel-slide video { width: 100%; display: block; object-fit: contain; max-height: 560px; background: #000; }
+    .carousel-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: #000; color: #fff; border: none;
+      padding: 12px 18px; font-size: 18px; cursor: pointer; z-index: 10;
+      font-family: 'Courier New', monospace;
+    }
+    .carousel-btn:hover { background: #ff0000; }
+    .carousel-prev { left: 0; }
+    .carousel-next { right: 0; }
+    .carousel-counter { position: absolute; bottom: 12px; right: 16px; font-size: 11px; color: #fff; background: rgba(0,0,0,0.5); padding: 2px 8px; }
+
+    /* STATS */
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid #aaa; }
+    .stat-item { padding: 24px; border-right: 1px solid #aaa; }
+    .stat-item:last-child { border-right: none; }
+    .stat-val { font-size: clamp(28px, 4vw, 48px); font-weight: 900; letter-spacing: -0.02em; display: block; }
+    .stat-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #000; font-weight: 700; margin-top: 4px; display: block; }
+
+    /* AWARDS */
+    .awards { padding: 24px; border-bottom: 1px solid #aaa; }
+    .awards-list { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+    .award-item { font-size: 13px; font-weight: 500; }
+    .award-item .red { color: #ff0000; font-weight: 900; }
+
+    /* NEXT */
+    .case-next { padding: 24px; display: flex; justify-content: space-between; align-items: center; }
+    .case-next a { color: #000; text-decoration: none; font-weight: bold; }
+    .case-next a:hover { color: #ff0000; }
+
+    footer { padding: 8px 24px; border-top: 1px solid #aaa; font-size: 11px; color: #888; display: flex; justify-content: space-between; }
+
+    @media (max-width: 700px) {
+      .case-header { grid-template-columns: 1fr; }
+      .case-title { white-space: normal; font-size: 32px; }
+      .case-body { grid-template-columns: 1fr; }
+      .case-section { border-right: none; border-bottom: 1px solid #aaa; }
+      .case-full-2col { grid-template-columns: 1fr; gap: 24px; }
+      .stats { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <span class="nav-name">Anastasiya Audzeyenka</span>
+    <div class="nav-links">
+      <a href="index.html">Work</a>
+      <a href="about.html">About</a>
+      <a href="mailto:avdos42@gmail.com">Contact</a>
+    </div>
+  </nav>
+
+  <div class="case-header">
+    <div>
+      <div class="case-back"><a href="index.html">← Back to all work</a></div>
+      <div class="case-client">JTI · Internal Communications</div>
+      <h1 class="case-title">Our <span class="red">Way</span></h1>
+      <div class="case-tags">
+        <span class="case-tag">Employer Branding</span>
+        <span class="case-tag">Gamification</span>
+        <span class="case-tag">Internal Comms</span>
+        <span class="case-tag">Board Game</span>
+      </div>
+    </div>
+    <div>
+      <div class="meta-item">
+        <div class="meta-label">Year</div>
+        <div class="meta-val">2024</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Category</div>
+        <div class="meta-val">Internal Communications</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Awards</div>
+        <div class="meta-val meta-award">🏆 Grand Prix · Laureate II · Bronze</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIDEO -->
+  <div class="video-wrap">
+    <iframe src="https://www.youtube.com/embed/fwPrFFsghTs"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen></iframe>
+  </div>
+
+  <!-- CHALLENGE + IDEA -->
+  <div class="case-body">
+    <div class="case-section">
+      <div class="case-section-title">Challenge</div>
+      <div class="case-text">JTI had updated its global corporate values — but values on a poster and values people actually live by are two different things. The task was to make <span class="red">4,000+ employees</span> across factories, offices, and logistics centres not just aware of the new framework, but genuinely engaged with it.</div>
+    </div>
+    <div class="case-section">
+      <div class="case-section-title">Idea</div>
+      <div class="case-text">Instead of a traditional launch campaign, we built a <span class="red">year-long communication system</span> around a custom board game — IMAJTINARIUM. Each of the four values got its own symbolic world: mirror, neon, soft, and precious. The 72 cards were created using Midjourney — based on <span class="red">metaphors and associations collected from employees themselves</span>. The values literally came from the people.</div>
+    </div>
+  </div>
+
+  <!-- EXECUTION -->
+  <div class="case-full">
+    <div class="case-section-title">Execution</div>
+    <div class="case-full-2col">
+      <div class="case-text">
+        The campaign ran across all internal channels — town halls, Viva Engage, offline installations, and email. At its core was a <span class="red">gamified platform with 20 different game mechanics</span> for exploring the values: employees earned points, competed on a leaderboard, and worked towards becoming the top values champion.
+      </div>
+      <div class="case-text">
+        The grand prize was the physical board game itself, along with branded company merch. To close the campaign, we produced our own <span class="red">unboxing video</span> — a playful instruction on how to use the game both at work and at home. The game then became a permanent part of <span class="red">onboarding and team training</span>, not a one-off activation.
+      </div>
+    </div>
+  </div>
+
+  <!-- CAROUSEL -->
+  <div class="carousel">
+    <div class="carousel-track" id="jti-track">
+      <div class="carousel-slide">
+        <video autoplay loop muted playsinline>
+          <source src="jti-1.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="carousel-slide">
+        <video autoplay loop muted playsinline>
+          <source src="jti-2.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="carousel-slide">
+        <video autoplay loop muted playsinline>
+          <source src="jti-3.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="carousel-slide">
+        <video autoplay loop muted playsinline>
+          <source src="jti-4.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="carousel-slide">
+        <video autoplay loop muted playsinline>
+          <source src="jti-5.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="carousel-slide">
+        <video autoplay loop muted playsinline>
+          <source src="jti-6.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+    <button class="carousel-btn carousel-prev" onclick="jtiMove(-1)">←</button>
+    <button class="carousel-btn carousel-next" onclick="jtiMove(1)">→</button>
+    <div class="carousel-counter" id="jti-counter">1 / 6</div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat-item">
+      <span class="stat-val">18,855</span>
+      <span class="stat-label">Game interactions</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-val">84</span>
+      <span class="stat-label">Values adherence index</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-val">90</span>
+      <span class="stat-label">Sense of belonging index</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-val">+12</span>
+      <span class="stat-label">Points above global benchmark</span>
+    </div>
+  </div>
+
+  <!-- AWARDS -->
+  <div class="awards">
+    <div class="case-section-title">Awards</div>
+    <div class="awards-list">
+      <div class="award-item">🏆 <span class="red">Grand Prix</span> — Best Internal Communication System · Employer Brand Summit & Awards</div>
+      <div class="award-item">🏆 <span class="red">Grand Prix</span> — Best Internal Communication System · Employer Branding Awards</div>
+      <div class="award-item">🏆 <span class="red">Laureate II</span> — Best Communication Campaign · Employer Brand Summit & Awards 2025</div>
+      <div class="award-item">🏆 <span class="red">Bronze</span> — LOUD</div>
+    </div>
+  </div>
+
+  <div class="case-next">
+    <a href="index.html">← All work</a>
+    <a href="severstal.html">Next: Severstal — Steel Hunters →</a>
+  </div>
+
+  <footer>
+    <span>© 2025 Anastasiya Audzeyenka</span>
+    <span>Creative Director · Warsaw</span>
+  </footer>
+
+  <script>
+    let jtiCurrent = 0;
+    const jtiTotal = 6;
+    const jtiTrack = document.getElementById('jti-track');
+    const jtiCounter = document.getElementById('jti-counter');
+
+    function jtiMove(dir) {
+      jtiCurrent = (jtiCurrent + dir + jtiTotal) % jtiTotal;
+      jtiTrack.style.transform = `translateX(-${jtiCurrent * 100}%)`;
+      jtiCounter.textContent = `${jtiCurrent + 1} / ${jtiTotal}`;
+    }
+  </script>
+
+</body>
+</html>
