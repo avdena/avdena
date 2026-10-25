@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SIBUR — It Doesn't Matter What Others Say · Anastasiya Audzeyenka</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #e8e8e8;
+      color: #000;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 10px 24px;
+      border-bottom: 1px solid #aaa;
+    }
+    .nav-name { font-size: 13px; font-weight: bold; }
+    .nav-links { display: flex; gap: 20px; }
+    .nav-links a { color: #000; text-decoration: none; font-size: 13px; }
+    .nav-links a:hover { text-decoration: underline; }
+
+    .case-header {
+      padding: 32px 24px 24px;
+      border-bottom: 1px solid #aaa;
+      display: grid;
+      grid-template-columns: 1fr 260px;
+      gap: 48px;
+      align-items: start;
+    }
+    .case-back { font-size: 11px; color: #888; margin-bottom: 16px; }
+    .case-back a { color: #888; text-decoration: none; }
+    .case-back a:hover { color: #ff0000; }
+    .case-client { font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; color: #555; margin-bottom: 10px; font-weight: bold; }
+    .case-title {
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+    }
+    .case-title .red { color: #ff0000; }
+    .case-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    .case-tag {
+      font-size: 11px;
+      padding: 3px 10px;
+      border: 1.5px solid #000;
+      font-weight: bold;
+      letter-spacing: 0.05em;
+    }
+    .meta-item { padding: 12px 0; border-top: 1px solid #aaa; }
+    .meta-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: #888; margin-bottom: 4px; }
+    .meta-val { font-size: 13px; font-weight: bold; }
+    .meta-award { color: #ff0000; }
+
+    .video-wrap {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-bottom: 1px solid #aaa;
+    }
+    .video-wrap iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: none;
+    }
+    .video-caption {
+      padding: 8px 24px;
+      font-size: 11px;
+      color: #888;
+      border-bottom: 1px solid #aaa;
+    }
+    .video-caption strong { color: #000; }
+
+    .case-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid #aaa;
+    }
+    .case-col { padding: 32px 24px; }
+    .case-col + .case-col { border-left: 1px solid #aaa; }
+    .case-col h2 {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #000;
+      margin-bottom: 16px;
+      font-weight: 900;
+    }
+    .case-col p { margin-bottom: 14px; }
+    .case-col p:last-child { margin-bottom: 0; }
+    .case-col strong { color: #ff0000; font-weight: bold; }
+
+    .numbers-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-bottom: 1px solid #aaa;
+    }
+    .num-item {
+      padding: 28px 24px;
+      border-right: 1px solid #aaa;
+    }
+    .num-item:last-child { border-right: none; }
+    .num-big {
+      font-size: 42px;
+      font-weight: 900;
+      line-height: 1;
+      color: #ff0000;
+      letter-spacing: -0.03em;
+    }
+    .num-label {
+      font-size: 11px;
+      color: #555;
+      margin-top: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* GALLERY */
+    .gallery-section {
+      padding: 0;
+      border-bottom: 1px solid #aaa;
+    }
+    .gallery-label {
+      padding: 16px 24px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #888;
+      border-bottom: 1px solid #aaa;
+    }
+    .gallery-full img {
+      width: 100%;
+      display: block;
+      border-bottom: 1px solid #aaa;
+    }
+
+    /* CAROUSEL */
+    .carousel-section { border-bottom: 1px solid #aaa; }
+    .carousel-label {
+      padding: 16px 24px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #888;
+      border-bottom: 1px solid #aaa;
+    }
+    .carousel-wrap { position: relative; overflow: hidden; background: #000; }
+    .carousel-track {
+      display: flex;
+      transition: transform 0.35s ease;
+    }
+    .carousel-track video {
+      min-width: 100%;
+      width: 100%;
+      height: 520px;
+      object-fit: cover;
+      display: block;
+    }
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #e8e8e8;
+      border: none;
+      font-family: 'Courier New', monospace;
+      font-size: 22px;
+      font-weight: bold;
+      cursor: pointer;
+      padding: 10px 16px;
+      z-index: 10;
+    }
+    .carousel-btn:hover { background: #ff0000; color: #fff; }
+    .carousel-prev { left: 16px; }
+    .carousel-next { right: 16px; }
+    .carousel-counter {
+      padding: 10px 24px;
+      font-size: 11px;
+      color: #888;
+      border-top: 1px solid #aaa;
+      text-align: right;
+    }
+
+    /* AWARDS */
+    .awards-section {
+      padding: 32px 24px;
+      border-bottom: 1px solid #aaa;
+    }
+    .awards-section h2 {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #888;
+      margin-bottom: 20px;
+    }
+    .award-line {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      padding: 10px 0;
+      border-top: 1px solid #ddd;
+    }
+    .award-badge {
+      font-size: 11px;
+      font-weight: bold;
+      color: #ff0000;
+      min-width: 90px;
+    }
+    .award-desc { font-size: 13px; }
+
+    footer {
+      padding: 24px;
+      font-size: 11px;
+      color: #888;
+      display: flex;
+      justify-content: space-between;
+    }
+    footer a { color: #000; text-decoration: none; font-weight: bold; }
+    footer a:hover { color: #ff0000; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-name">Anastasiya Audzeyenka</span>
+  <div class="nav-links">
+    <a href="index.html">Work</a>
+    <a href="about.html">About</a>
+    <a href="mailto:avdos42@gmail.com">Contact</a>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<div class="case-header">
+  <div>
+    <div class="case-back"><a href="index.html">← Back to work</a></div>
+    <div class="case-client">SIBUR · Employer Branding · 2025</div>
+    <div class="case-title">It Doesn't Matter<br>What <span class="red">Others Say</span></div>
+    <div class="case-tags">
+      <span class="case-tag">Employer Branding</span>
+      <span class="case-tag">Manifesto Film</span>
+      <span class="case-tag">Women in Industry</span>
+      <span class="case-tag">OOH + Digital</span>
+    </div>
+  </div>
+  <div>
+    <div class="meta-item">
+      <div class="meta-label">Awards</div>
+      <div class="meta-val meta-award">Silver · Intercomm</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Reach</div>
+      <div class="meta-val">5M+ (first flight)</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Role</div>
+      <div class="meta-val">Creative Director, Author of the Platform & Slogan</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Agency</div>
+      <div class="meta-val">Braining Group</div>
+    </div>
+  </div>
+</div>
+
+<!-- VIDEO -->
+<div class="video-wrap">
+  <iframe src="https://www.youtube.com/embed/SGgovj_RYB4" allowfullscreen></iframe>
+</div>
+<div class="video-caption">↑ This video is in Russian. <strong>Turn on CC (subtitles)</strong> for English translation.</div>
+
+<!-- CASE TEXT -->
+<div class="case-body">
+  <div class="case-col">
+    <h2>The Challenge</h2>
+    <p>The petrochemical industry has a gender perception problem. Women who choose to work in production face a wall of stereotypes — from family, from society, from the industry itself. SIBUR needed to change that narrative and signal clearly: <strong>this is a place where ambition has no gender.</strong></p>
+    <p>The goal: build awareness that women belong in production — and make SIBUR the employer that says it first.</p>
+  </div>
+  <div class="case-col">
+    <h2>The Idea</h2>
+    <p><strong>It doesn't matter what others say. What matters is what you decide.</strong></p>
+    <p>We studied the cultural context, analysed the market, and — most importantly — talked to the women of SIBUR. Their stories shaped a new Target Value Proposition: "For women who are tired of stereotypes, SIBUR is the ideal workplace — because we know ambition and passion have no gender." The slogan followed from there.</p>
+  </div>
+</div>
+
+<!-- GALLERY -->
+<div class="gallery-section">
+  <div class="gallery-label">Campaign in Context</div>
+  <div class="gallery-full">
+    <img src="sibur-1.jpg" alt="SIBUR manifesto film — ad screen in public transport: 'I can be a chef — in the workshop and in the kitchen'" />
+  </div>
+</div>
+
+<!-- CAROUSEL -->
+<div class="carousel-section">
+  <div class="carousel-label">Campaign Materials</div>
+  <div class="carousel-wrap">
+    <div class="carousel-track" id="track">
+      <video src="sibur-1.mp4" autoplay muted loop playsinline></video>
+      <video src="sibur-2.mp4" autoplay muted loop playsinline></video>
+      <video src="sibur-3.mp4" autoplay muted loop playsinline></video>
+      <video src="sibur-4.mp4" autoplay muted loop playsinline></video>
+    </div>
+    <button class="carousel-btn carousel-prev" onclick="moveCarousel(-1)">←</button>
+    <button class="carousel-btn carousel-next" onclick="moveCarousel(1)">→</button>
+  </div>
+  <div class="carousel-counter" id="counter">1 / 4</div>
+</div>
+
+<!-- HOW IT WORKED -->
+<div class="case-body">
+  <div class="case-col">
+    <h2>The Execution</h2>
+    <p>We made a manifesto film. No scripts, no invented characters — <strong>real SIBUR employees from different divisions and cities,</strong> each with their own doubts, contrasts, and wins. Women who chose production work consciously, and prove every day that only a woman can decide where she belongs and what drives her.</p>
+    <p>In every frame we tried to capture their authenticity and inner freedom — showing that boldness and care, femininity and professionalism, strength and softness can coexist in the same person.</p>
+  </div>
+  <div class="case-col">
+    <h2>The Distribution</h2>
+    <p>We stepped outside traditional HR channels: <strong>digital screens in fitness clubs</strong> and Post pickup points, plus transport placements across SIBUR's cities. Three very different environments — three different segments of the same audience.</p>
+    <p>SIBUR became the first employer in its category to say it directly: women have the freedom to be themselves. Not "career vs. home" — but the right to be both, or neither, or something entirely her own.</p>
+  </div>
+</div>
+
+<!-- NUMBERS -->
+<div class="numbers-row">
+  <div class="num-item">
+    <div class="num-big">5M+</div>
+    <div class="num-label">Users reached · first flight</div>
+  </div>
+  <div class="num-item">
+    <div class="num-big">+7%</div>
+    <div class="num-label">Women in engaged audience on SIBUR's site</div>
+  </div>
+  <div class="num-item">
+    <div class="num-big">+95%</div>
+    <div class="num-label">Search queries for SIBUR jobs YoY in campaign regions</div>
+  </div>
+</div>
+
+<!-- AWARDS -->
+<div class="awards-section">
+  <h2>Awards</h2>
+  <div class="award-line">
+    <span class="award-badge">Silver</span>
+    <span class="award-desc">Intercomm · Женское дело / Women's Business</span>
+  </div>
+</div>
+
+<footer>
+  <span>← <a href="severstal.html">Severstal — Steel Hunters</a></span>
+  <span><a href="index.html">All work →</a></span>
+</footer>
+
+<script>
+  let cur = 0;
+  const track = document.getElementById('track');
+  const slides = track.children;
+  const counter = document.getElementById('counter');
+
+  function moveCarousel(dir) {
+    cur = (cur + dir + slides.length) % slides.length;
+    track.style.transform = `translateX(-${cur * 100}%)`;
+    counter.textContent = `${cur + 1} / ${slides.length}`;
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowLeft') moveCarousel(-1);
+    if (e.key === 'ArrowRight') moveCarousel(1);
+  });
+</script>
+</body>
+</html>
