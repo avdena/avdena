@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RTC COD — Values as a Game · Anastasiya Audzeyenka</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #e8e8e8;
+      color: #000;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 10px 24px;
+      border-bottom: 1px solid #aaa;
+    }
+    .nav-name { font-size: 13px; font-weight: bold; }
+    .nav-links { display: flex; gap: 20px; }
+    .nav-links a { color: #000; text-decoration: none; font-size: 13px; }
+    .nav-links a:hover { text-decoration: underline; }
+
+    .case-header {
+      padding: 32px 24px 24px;
+      border-bottom: 1px solid #aaa;
+      display: grid;
+      grid-template-columns: 1fr 260px;
+      gap: 48px;
+      align-items: start;
+    }
+    .case-back { font-size: 11px; color: #888; margin-bottom: 16px; }
+    .case-back a { color: #888; text-decoration: none; }
+    .case-back a:hover { color: #ff0000; }
+    .case-client { font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; color: #555; margin-bottom: 10px; font-weight: bold; }
+    .case-title {
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+    }
+    .case-title .red { color: #ff0000; }
+    .case-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    .case-tag {
+      font-size: 11px;
+      padding: 3px 10px;
+      border: 1.5px solid #000;
+      font-weight: bold;
+      letter-spacing: 0.05em;
+    }
+    .meta-item { padding: 12px 0; border-top: 1px solid #aaa; }
+    .meta-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: #888; margin-bottom: 4px; }
+    .meta-val { font-size: 13px; font-weight: bold; }
+    .meta-award { color: #ff0000; }
+
+    .video-wrap {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-bottom: 1px solid #aaa;
+    }
+    .video-wrap iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: none;
+    }
+    .video-caption {
+      padding: 8px 24px;
+      font-size: 11px;
+      color: #888;
+      border-bottom: 1px solid #aaa;
+    }
+    .video-caption strong { color: #000; }
+
+    .case-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid #aaa;
+    }
+    .case-col { padding: 32px 24px; }
+    .case-col + .case-col { border-left: 1px solid #aaa; }
+    .case-col h2 {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #000;
+      margin-bottom: 16px;
+      font-weight: 900;
+    }
+    .case-col p { margin-bottom: 14px; }
+    .case-col p:last-child { margin-bottom: 0; }
+    .case-col strong { color: #ff0000; font-weight: bold; }
+
+    /* GALLERY */
+    .gallery-section {
+      padding: 0;
+      border-bottom: 1px solid #aaa;
+    }
+    .gallery-label {
+      padding: 16px 24px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #888;
+      border-bottom: 1px solid #aaa;
+    }
+    .gallery-full img, .gallery-full gif {
+      width: 100%;
+      display: block;
+      border-bottom: 1px solid #aaa;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .gallery-grid img, .gallery-grid gif {
+      width: 100%;
+      display: block;
+      border-right: 1px solid #aaa;
+      border-bottom: 1px solid #aaa;
+    }
+    .gallery-grid img:nth-child(2n), .gallery-grid gif:nth-child(2n) { border-right: none; }
+
+    /* CAROUSEL */
+    .carousel-section { border-bottom: 1px solid #aaa; }
+    .carousel-label {
+      padding: 16px 24px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #888;
+      border-bottom: 1px solid #aaa;
+    }
+    .carousel-wrap { position: relative; overflow: hidden; background: #000; }
+    .carousel-track {
+      display: flex;
+      transition: transform 0.35s ease;
+    }
+    .carousel-track img,
+    .carousel-track .carousel-slide {
+      min-width: 100%;
+      width: 100%;
+      display: block;
+    }
+    .carousel-track img {
+      height: 520px;
+      object-fit: cover;
+    }
+    .carousel-slide img,
+    .carousel-slide gif-img {
+      width: 100%;
+      display: block;
+    }
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #e8e8e8;
+      border: none;
+      font-family: 'Courier New', monospace;
+      font-size: 22px;
+      font-weight: bold;
+      cursor: pointer;
+      padding: 10px 16px;
+      z-index: 10;
+    }
+    .carousel-btn:hover { background: #ff0000; color: #fff; }
+    .carousel-prev { left: 16px; }
+    .carousel-next { right: 16px; }
+    .carousel-counter {
+      padding: 10px 24px;
+      font-size: 11px;
+      color: #888;
+      border-top: 1px solid #aaa;
+      text-align: right;
+    }
+
+    /* NUMBERS */
+    .numbers-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-bottom: 1px solid #aaa;
+    }
+    .num-item {
+      padding: 28px 24px;
+      border-right: 1px solid #aaa;
+    }
+    .num-item:last-child { border-right: none; }
+    .num-big {
+      font-size: 42px;
+      font-weight: 900;
+      line-height: 1;
+      color: #ff0000;
+      letter-spacing: -0.03em;
+    }
+    .num-label {
+      font-size: 11px;
+      color: #555;
+      margin-top: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* AWARDS */
+    .awards-section {
+      padding: 32px 24px;
+      border-bottom: 1px solid #aaa;
+    }
+    .awards-section h2 {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #888;
+      margin-bottom: 20px;
+    }
+    .award-line {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      padding: 10px 0;
+      border-top: 1px solid #ddd;
+    }
+    .award-badge {
+      font-size: 11px;
+      font-weight: bold;
+      color: #ff0000;
+      min-width: 90px;
+    }
+    .award-desc { font-size: 13px; }
+
+    footer {
+      padding: 24px;
+      font-size: 11px;
+      color: #888;
+      display: flex;
+      justify-content: space-between;
+    }
+    footer a { color: #000; text-decoration: none; font-weight: bold; }
+    footer a:hover { color: #ff0000; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-name">Anastasiya Audzeyenka</span>
+  <div class="nav-links">
+    <a href="index.html">Work</a>
+    <a href="about.html">About</a>
+    <a href="mailto:avdos42@gmail.com">Contact</a>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<div class="case-header">
+  <div>
+    <div class="case-back"><a href="index.html">← Back to work</a></div>
+    <div class="case-client">RTC COD · Internal Communications · 2025</div>
+    <div class="case-title">Values as<br>a <span class="red">Game</span></div>
+    <div class="case-tags">
+      <span class="case-tag">Gamification</span>
+      <span class="case-tag">Internal Comms</span>
+      <span class="case-tag">Corporate Culture</span>
+      <span class="case-tag">Sci-Fi Universe</span>
+    </div>
+  </div>
+  <div>
+    <div class="meta-item">
+      <div class="meta-label">Awards</div>
+      <div class="meta-val meta-award">Grand Prix · EBA</div>
+      <div class="meta-val meta-award">Bronze · Silver Mercury</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Participation</div>
+      <div class="meta-val">98% of employees</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Role</div>
+      <div class="meta-val">Creative Director</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Agency</div>
+      <div class="meta-val">Braining Group</div>
+    </div>
+  </div>
+</div>
+
+<!-- VIDEO -->
+<div class="video-wrap">
+  <iframe src="https://www.youtube.com/embed/4gb-751ORoM" allowfullscreen></iframe>
+</div>
+<div class="video-caption">↑ This video is in Russian. <strong>Turn on CC (subtitles)</strong> for English translation.</div>
+
+<!-- CASE TEXT -->
+<div class="case-body">
+  <div class="case-col">
+    <h2>The Challenge</h2>
+    <p>After merging four separate companies into one, RTC COD needed to do something harder than announce new corporate values — they needed people to actually live them. <strong>IT specialists don't engage with HR presentations.</strong> Values on a poster stay on a poster.</p>
+    <p>The task: turn abstract principles into shared daily behaviour across four previously separate teams — without making it feel like a mandate.</p>
+  </div>
+  <div class="case-col">
+    <h2>The Idea</h2>
+    <p>We built a sci-fi universe. The five corporate values — Trust, Results, Responsibility, Client Focus, and Creation <strong>(D.R.O.K.S. — an acronym based on their names in Russian)</strong> — each got its own planet, visual world, and set of game scenarios.</p>
+    <p>Employees joined the <strong>"COD Guild"</strong> — a community that, by legend, "carries the light of knowledge across the universe of clients and colleagues." But this wasn't a campaign with a microsite. <strong>We built a full game platform:</strong> character customisation, a points economy, leaderboards, team competitions, and a range of game mechanics that kept engagement alive across six months.</p>
+    <p>Instead of reading about values, they played them.</p>
+  </div>
+</div>
+
+<!-- GALLERY: key visual + platform screenshot -->
+<div class="gallery-section">
+  <div class="gallery-label">The Universe</div>
+  <div class="gallery-full">
+    <img src="rtkcod-4.jpg" alt="COD Guild — key visual: D.R.O.K.S. values carved in stone, sci-fi character with flag" />
+  </div>
+  <div class="gallery-grid">
+    <img src="rtkcod-2.png" alt="Game platform — spaceship cockpit, leaderboard, character customisation" />
+    <img src="rtkcod-5.gif" alt="Platform screen: value Trust — employees as space characters" />
+  </div>
+</div>
+
+<!-- CAROUSEL: GIFs + event + UGC -->
+<div class="carousel-section">
+  <div class="carousel-label">Campaign Materials</div>
+  <div class="carousel-wrap">
+    <div class="carousel-track" id="track">
+      <div class="carousel-slide"><img src="rtkcod-1.gif" alt="Animated planet — intro sequence" /></div>
+      <div class="carousel-slide"><img src="rtkcod-3.gif" alt="Campaign film — starfield opening" /></div>
+      <div class="carousel-slide"><img src="rtkcod-6.png" alt="Tech Fest — offline launch event" /></div>
+      <div class="carousel-slide"><img src="rtkcod-7.gif" alt="Recording the campaign track with employees" /></div>
+      <div class="carousel-slide"><img src="rtkcod-8.png" alt="UGC — employee-created content in internal channels" /></div>
+    </div>
+    <button class="carousel-btn carousel-prev" onclick="moveCarousel(-1)">←</button>
+    <button class="carousel-btn carousel-next" onclick="moveCarousel(1)">→</button>
+  </div>
+  <div class="carousel-counter" id="counter">1 / 5</div>
+</div>
+
+<!-- HOW IT WORKED -->
+<div class="case-body">
+  <div class="case-col">
+    <h2>The Execution</h2>
+    <p>The campaign launched in June at the company's <strong>Tech Fest</strong> outdoor festival — an offline event that gave the project an emotional start before the digital platform opened. Over six months, the ecosystem kept growing: a branded track recorded with employees, dubbing contests, UGC challenges, a leadership stream, and offline activations at company events.</p>
+    <p>The game was only part of the system. <strong>The goal was a living communications environment people wanted to join.</strong></p>
+  </div>
+  <div class="case-col">
+    <h2>Why It Worked</h2>
+    <p>No mandatory participation. No administrative pressure. Just a universe people chose to explore — because it was actually good.</p>
+    <p><strong>5% of the audience (200+ people)</strong> created organic content about using the values at work — without moderation or incentives. A figure comparable to B2C campaigns.</p>
+    <p>Values stopped living in a document. <strong>+30% mentions of the principles in work chats and email</strong> — the values entered the team's working vocabulary.</p>
+  </div>
+</div>
+
+<!-- NUMBERS -->
+<div class="numbers-row">
+  <div class="num-item">
+    <div class="num-big">98%</div>
+    <div class="num-label">Completed the experience · target 70%</div>
+  </div>
+  <div class="num-item">
+    <div class="num-big">91%</div>
+    <div class="num-label">Values awareness · target 80%</div>
+  </div>
+  <div class="num-item">
+    <div class="num-big">76%</div>
+    <div class="num-label">Spontaneous recall — unprompted</div>
+  </div>
+  <div class="num-item">
+    <div class="num-big">57%</div>
+    <div class="num-label">Confirmed behavioural change · target 50%</div>
+  </div>
+</div>
+
+<!-- AWARDS -->
+<div class="awards-section">
+  <h2>Awards</h2>
+  <div class="award-line">
+    <span class="award-badge">Grand Prix</span>
+    <span class="award-desc">Employer Branding Awards · Best Internal Communication System</span>
+  </div>
+  <div class="award-line">
+    <span class="award-badge">Bronze</span>
+    <span class="award-desc">Silver Mercury · Best Creative in Employer Brand & Internal Communications</span>
+  </div>
+</div>
+
+<footer>
+  <span>← <a href="sibur.html">SIBUR — It Doesn't Matter What Others Say</a></span>
+  <span><a href="index.html">All work →</a></span>
+</footer>
+
+<script>
+  let cur = 0;
+  const track = document.getElementById('track');
+  const slides = track.children;
+  const counter = document.getElementById('counter');
+
+  function moveCarousel(dir) {
+    cur = (cur + dir + slides.length) % slides.length;
+    track.style.transform = `translateX(-${cur * 100}%)`;
+    counter.textContent = `${cur + 1} / ${slides.length}`;
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowLeft') moveCarousel(-1);
+    if (e.key === 'ArrowRight') moveCarousel(1);
+  });
+</script>
+</body>
+</html>
